@@ -19,21 +19,43 @@ Pkg.instantiate()
 # Problem 1
 
 ## Problem 1.1
+```julia
 function square_number(x)
   return x^2
 end
+```
 
 ## Problem 1.2
+```julia
 x=5
-"We can see that $x^2 =$ `j square_number(x)`."
+"We can see that $x^2 =$ `j square_number($x)`."
+```
 
 ## Problem 1.3
+```julia
+using Plot
+plot(square_number, -10, 10, xaxis="x", yaxis="y", label="square_number(x)", legend=:topright)
+```
 
 # Problem 2
 
 ## Problem 2.1
 
+
+
 ## Problem 2.2
+```julia
+function square_apprx(x,guess,error)
+  a=guess
+    while (x/a > sqrt(x)+error) || (x/a < sqrt(x)-error)
+     b=x/a
+     a=((b+a)/2)
+   end
+  return a
+end
+
+square_apprx(2,1.8,.001)
+```
 
 # Problem 3
 
