@@ -16,6 +16,7 @@ Pkg.activate(".")
 Pkg.instantiate()
 ```
 
+
 # Problem 1
 
 ## Problem 1.1
@@ -33,15 +34,18 @@ x=5
 
 ## Problem 1.3
 ```julia
-using Plot
+using Plots
 plot(square_number, -10, 10, xaxis="x", yaxis="y", label="square_number(x)", legend=:topright)
 ```
+
 
 # Problem 2
 
 ## Problem 2.1
 
-
+If ``a > \sqrt{x}`` then ``\frac{x}{a} < \sqrt{x}``
+If ``a < \sqrt{x}`` then ``\frac{x}{a} > \sqrt{x}``
+If ``a = \sqrt{x}`` then ``\frac{x}{a} = \sqrt{x}``
 
 ## Problem 2.2
 ```julia
@@ -57,22 +61,92 @@ end
 square_apprx(2,1.8,.001)
 ```
 
+
 # Problem 3
 
 ## Problem 3.1
+```julia
+v=rand(1,20)
+```
 
 ## Problem 3.2
+```julia
+function mean(vector)
+  sum=0
+  avg=0
+    for i in 1:length(vector)
+      sum=sum+vector[i]
+      avg=sum/i
+    end
+  return avg
+end
+
+mean(v)
+
+function demean!(vector)
+  newvec=zeros(1,length(vector))
+    for i in 1:length(vector)
+      newvec[i] = vector[i] - mean(vector)
+    end
+  return newvec
+end
+```
 
 ## Problem 3.3
+```julia
+vec=zeros(1,10)
+for i in 3:length(vec)-2
+  vec[i] = 1
+end
+vec
+```
 
 ## Problem 3.4
+```julia
+A=rand(5,5)
+v=zeros(1,5)
+l=length(v)
+for i in 1:l
+  sum=0
+  avg=0
+  for j in 1:l
+    sum=sum+A[i,j]
+      avg=sum/j
+  end
+  v[i]=avg
+  for j in 1:l
+    A[i,j] = A[i,j] - v[i]
+  end
+end
+v
+A
+```
+
 
 # Problem 4
 
 ## Problem 4.1
+```julia
+using Distributions
+yt=LogNormal(log(.03),.005)
+samples=rand(yt,100)
+```
 
 ## Problem 4.2
+```julia
+function X(t)
+  X = 0
+  for i in 1:t
+    new = X + .4 + samples[i] + (X^2)/(1+X^2) - .42*X
+    X=new
+  end
+  return X
+end
+```
 
 ## Problem 4.3
+```julia
+plot(X, 1, 100)
+```
 
 # References
