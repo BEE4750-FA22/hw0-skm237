@@ -27,15 +27,13 @@ end
 ```
 
 ## Problem 1.2
-```julia
-x=5
-"We can see that $x^2 =$ `j square_number($x)`."
-```
+We can see that $5^2 =$ `j square_number(5)`.
 
 ## Problem 1.3
 ```julia
+Pkg.add("Plots")
 using Plots
-plot(square_number, -10, 10, xaxis="x", yaxis="y", label="square_number(x)", legend=:topright)
+plot(square_number, -10, 10, xlabel="x", ylabel="y", label="square_number(x)", legend=:topright)
 ```
 
 
@@ -43,17 +41,21 @@ plot(square_number, -10, 10, xaxis="x", yaxis="y", label="square_number(x)", leg
 
 ## Problem 2.1
 
-If ``a > \sqrt{x}`` then ``\frac{x}{a} < \sqrt{x}``
-If ``a < \sqrt{x}`` then ``\frac{x}{a} > \sqrt{x}``
-If ``a = \sqrt{x}`` then ``\frac{x}{a} = \sqrt{x}``
+If $$ a > \sqrt{x}$$ then $$ \frac{x}{a} < \sqrt{x}$$
+
+If $$ a < \sqrt{x}$$ then $$ \frac{x}{a} > \sqrt{x}$$
+
+If $$ a = \sqrt{x}$$ then $$ \frac{x}{a} = \sqrt{x}$$
 
 ## Problem 2.2
 ```julia
 function square_apprx(x,guess,error)
   a=guess
-    while (x/a > sqrt(x)+error) || (x/a < sqrt(x)-error)
-     b=x/a
-     a=((b+a)/2)
+  b=abs(a-(x/a)) 
+    while b>error
+     c=x/a
+     a=((c+a)/2)
+     b=abs(a-(x/a)) 
    end
   return a
 end
@@ -127,6 +129,7 @@ A
 
 ## Problem 4.1
 ```julia
+Pkg.add("Distributions")
 using Distributions
 yt=LogNormal(log(.03),.005)
 samples=rand(yt,100)
@@ -135,12 +138,12 @@ samples=rand(yt,100)
 ## Problem 4.2
 ```julia
 function X(t)
-  X = 0
+  P = 0
   for i in 1:t
-    new = X + .4 + samples[i] + (X^2)/(1+X^2) - .42*X
-    X=new
+    new = P + .4 + samples[i] + (P^2)/(1+P^2) - .42*P
+    P=new
   end
-  return X
+  return P
 end
 ```
 
