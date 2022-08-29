@@ -138,7 +138,8 @@ samples=rand(yt,100)
 ## Problem 4.2
 ```julia
 function X(t)
-  P = 0
+  P=0
+  new=0
   for i in 1:t
     new = P + .4 + samples[i] + (P^2)/(1+P^2) - .42*P
     P=new
