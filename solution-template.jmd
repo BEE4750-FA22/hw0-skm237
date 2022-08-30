@@ -131,7 +131,7 @@ A
 ```julia
 Pkg.add("Distributions")
 using Distributions
-yt=LogNormal(log(.03),.005)
+yt=LogNormal(.03,.005)
 samples=rand(yt,100)
 ```
 
@@ -140,17 +140,19 @@ samples=rand(yt,100)
 function X(t)
   P=0
   new=0
-  for i in 1:t
+  num=ceil(Int, t)
+  for i in 1:num
     new = P + .4 + samples[i] + (P^2)/(1+P^2) - .42*P
     P=new
   end
   return P
 end
+X(100)
 ```
 
 ## Problem 4.3
 ```julia
-plot(X, 1, 100)
+plot(X, 1, 100, xlabel="Time", ylabel="Phosphorus level", label="X", legend=:topright)
 ```
 
 # References
