@@ -51,11 +51,11 @@ If $$ a = \sqrt{x}$$ then $$ \frac{x}{a} = \sqrt{x}$$
 ```julia
 function square_apprx(x,guess,error)
   a=guess
-  b=abs(a-(x/a)) 
+  b=abs(a-(x/a)) # initialize 
     while b>error
      c=x/a
-     a=((c+a)/2)
-     b=abs(a-(x/a)) 
+     a=((c+a)/2) # new avg
+     b=abs(a-(x/a)) # difference
    end
   return a
 end
@@ -75,9 +75,9 @@ v=rand(1,20)
 ```julia
 function mean(vector)
   sum=0
-  avg=0
+  avg=0 # initialize
     for i in 1:length(vector)
-      sum=sum+vector[i]
+      sum=sum+vector[i] # add each component
       avg=sum/i
     end
   return avg
@@ -86,9 +86,9 @@ end
 mean(v)
 
 function demean!(vector)
-  newvec=zeros(1,length(vector))
+  newvec=zeros(1,length(vector)) # create a vector
     for i in 1:length(vector)
-      newvec[i] = vector[i] - mean(vector)
+      newvec[i] = vector[i] - mean(vector) # subtract the mean from each component
     end
   return newvec
 end
@@ -105,19 +105,19 @@ vec
 
 ## Problem 3.4
 ```julia
-A=rand(5,5)
-v=zeros(1,5)
-l=length(v)
+A=rand(5,5) # create matrix
+v=zeros(1,5) # initialize vector to fill with avgs
+l=length(v) 
 for i in 1:l
   sum=0
   avg=0
   for j in 1:l
-    sum=sum+A[i,j]
-      avg=sum/j
+    sum=sum+A[i,j] # add to sum
+      avg=sum/j # take avg
   end
-  v[i]=avg
+  v[i]=avg # avg of col is recorded in v
   for j in 1:l
-    A[i,j] = A[i,j] - v[i]
+    A[i,j] = A[i,j] - v[i] # subtract avg from each val in col
   end
 end
 v
@@ -140,14 +140,13 @@ samples=rand(yt,100)
 function X(t)
   P=0
   new=0
-  num=ceil(Int, t)
+  num=ceil(Int, t) # make sure t is an integer
   for i in 1:num
-    new = P + .4 + samples[i] + (P^2)/(1+P^2) - .42*P
+    new = P + .4 + samples[i] + (P^2)/(1+P^2) - .42*P # phosphorus at t time
     P=new
   end
   return P
 end
-X(100)
 ```
 
 ## Problem 4.3
@@ -156,3 +155,26 @@ plot(X, 1, 100, xlabel="Time", ylabel="Phosphorus level", label="X", legend=:top
 ```
 
 # References
+
+Arrays. Julia Documentation. https://docs.julialang.org/en/v1/base/arrays/#Base.eachindex 
+
+Carpenter, S. R., Ludwig, D., & Brock, W. A. (1999). Management of Eutrophication for Lakes Subject to
+ Potentially Irreversible Change. Ecological Applications, 9(3), 751-771. https://doi.org/10.2307/2641327
+
+Gregory, V., Stachurski, A., & Watkins, N. (2017). MATLAB-Python-Julia cheatsheet. QuantEcon. 
+https://cheatsheets.quantecon.org/
+
+Julia InexactError: Int64. Stack Overflow. https://stackoverflow.com/questions/62157005/julia-inexacterror-int64 
+
+The Julia REPL. Julia Documentation. https://docs.julialang.org/en/v1/stdlib/REPL/ 
+
+(2022). LaTeX Math Symbols - A glossary. LATEX-TUTORIAL.COM. https://latex-tutorial.com/symbols/math-symbols/ 
+
+LATEX syntax. Julia Documentation. https://juliadocs.github.io/Documenter.jl/v0.12/man/latex/ 
+
+Quinn, J. D., Reed, P. M., & Keller, K. (2017). Direct policy search for robust multi-objective 
+management of deeply uncertain socio-ecological tipping points. Environmental Modelling & Software, 92, 
+125-141. https://doi.org/10.1016/j.envsoft.2017.02.017
+
+Weave.jl - Scientific Reports Using Julia. Julia Documentation. https://weavejl.mpastell.com/stable/ 
+
